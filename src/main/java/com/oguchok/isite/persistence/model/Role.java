@@ -1,6 +1,6 @@
 package com.oguchok.isite.persistence.model;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,10 +18,10 @@ public class Role {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name = "role_name")
-	private String roleName;
+	@Column(name = "name")
+	private String name;
 	@ManyToMany(mappedBy="roles")
-	private Set<User> users;
+	private Collection<User> users;
 	
 	public Role() {}
 
@@ -33,19 +33,19 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getRoleName() {
-		return roleName;
+	public String getName() {
+		return name;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Set<User> getUsers() {
+	public Collection<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<User> users) {
+	public void setUsers(Collection<User> users) {
 		this.users = users;
 	}
 	

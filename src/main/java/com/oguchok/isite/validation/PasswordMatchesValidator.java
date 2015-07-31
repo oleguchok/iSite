@@ -3,7 +3,7 @@ package com.oguchok.isite.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.oguchok.isite.service.UserDTO;
+import com.oguchok.isite.persistence.service.UserDTO;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 

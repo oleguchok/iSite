@@ -1,6 +1,7 @@
 package com.oguchok.isite.security;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,12 +45,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 				true, authorities);
 	}
  
-	private List<GrantedAuthority> buildUserAuthority(Set<Role> userRoles) {
+	private List<GrantedAuthority> buildUserAuthority(Collection<Role> userRoles) {
  
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
  
 		for (Role userRole : userRoles) {
-			setAuths.add(new SimpleGrantedAuthority(userRole.getRoleName()));
+			setAuths.add(new SimpleGrantedAuthority(userRole.getName()));
 		}
  
 		List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);

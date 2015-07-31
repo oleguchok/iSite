@@ -1,6 +1,6 @@
 package com.oguchok.isite.persistence.model;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +33,7 @@ public class User{
 	@JoinTable(name="user_roles",
 				joinColumns=@JoinColumn(name="user_id"),
 				inverseJoinColumns=@JoinColumn(name="role_id"))
-	private Set<Role> roles;
+	private Collection<Role> roles;
 	
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean enabled;
@@ -72,11 +72,11 @@ public class User{
 		this.email = email;
 	}
 
-	public Set<Role> getRoles() {
+	public Collection<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
 
