@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -23,20 +24,11 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "com.oguchok.isite.*" })
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "com.oguchok.isite.repository")
 @Import({ SecurityConfig.class })
 public class AppConfig {
  
-	private final String MODELS_PACKAGE = "com.oguchok.isite.models";
-	
-//    @Bean
-//    public SessionFactory sessionFactory() {
-//    	LocalSessionFactoryBuilder builder = 
-//			new LocalSessionFactoryBuilder(dataSource());
-//        builder.scanPackages("com.oguchok.isite.models")
-//            .addProperties(getHibernateProperties());
-// 
-//        return builder.buildSessionFactory();
-//    }
+	private final String MODELS_PACKAGE = "com.oguchok.isite.model";
 
 	@Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
@@ -69,11 +61,6 @@ public class AppConfig {
 		ds.setPassword("1234");
 		return ds;
 	}
- 
-//	@Bean
-//        public HibernateTransactionManager txManager() {
-//                return new HibernateTransactionManager(sessionFactory());
-//        }
  
 	@Bean
 	public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
