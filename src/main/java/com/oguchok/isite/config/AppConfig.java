@@ -24,11 +24,11 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "com.oguchok.isite.*" })
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.oguchok.isite.repository")
+@EnableJpaRepositories(basePackages = "com.oguchok.isite.persistence.repository")
 @Import({ SecurityConfig.class })
 public class AppConfig {
  
-	private final String MODELS_PACKAGE = "com.oguchok.isite.model";
+	private final String MODELS_PACKAGE = "com.oguchok.isite.persistence.model";
 
 	@Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
