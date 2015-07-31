@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oguchok.isite.persistence.model.User;
 import com.oguchok.isite.persistence.service.UserDTO;
 import com.oguchok.isite.persistence.service.UserService;
-import com.oguchok.isite.validation.exception.EmailExistsException;
+import com.oguchok.isite.validation.exception.RegisterParameterExistsException;
 
 @Controller
 public class RegistrationController {
@@ -55,7 +55,7 @@ public class RegistrationController {
 	    User registered = null;
 	    try {
 	        registered = userService.registerNewUserAccount(accountDto);
-	    } catch (EmailExistsException e) {
+	    } catch (RegisterParameterExistsException e) {
 	        return null;
 	    }    
 	    return registered;

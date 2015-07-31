@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.oguchok.isite.persistence.model.User;
 import com.oguchok.isite.persistence.repository.RoleRepository;
 import com.oguchok.isite.persistence.repository.UserRepository;
-import com.oguchok.isite.validation.exception.EmailExistsException;
+import com.oguchok.isite.validation.exception.RegisterParameterExistsException;
 
 @Service
 @Transactional
@@ -28,16 +28,24 @@ public class UserServiceImpl implements UserService{
 	
 	@Transactional
 	@Override
-	public User registerNewUserAccount(UserDTO accountDto) throws EmailExistsException{
+	public User registerNewUserAccount(UserDTO accountDto) throws RegisterParameterExistsException{
 		
-		if (emailExist(accountDto.getEmail())) {
-			throw new EmailExistsException("There is an account with that email address:" +
-					accountDto.getEmail());
-		}
+		checkParametersForRegister(accountDto.getUsername(), accountDto.getEmail());
 		
 		return userRepository.save(getUserObjectFromUserDto(accountDto));
 	}
 
+	private void checkParametersForRegister(String username, String email) throws RegisterParameterExistsException {
+		if (usernameExist(username)) {
+			throw new RegisterParameterExistsException("There is an account with that username: " +
+					username);
+		}
+		if (emailExist(email)) {
+			throw new RegisterParameterExistsException("There is an account with that email address:" +
+					email);
+		}
+	}
+	
 	private User getUserObjectFromUserDto(UserDTO userDto) {
 		
 		User user = new User();
@@ -57,4 +65,12 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 	
+	private boolean usernameExist(String username) {
+		
+		User user = userRepository.findByUsername(username);
+		if (user != null) {
+			return true;
+		}
+		return false;
+	}
 }
