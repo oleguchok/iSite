@@ -5,6 +5,7 @@ import java.util.Arrays;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.oguchok.isite.persistence.model.User;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired 
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Transactional
 	@Override
@@ -39,7 +43,7 @@ public class UserServiceImpl implements UserService{
 		User user = new User();
 		user.setUsername(userDto.getUsername());
 		user.setEmail(userDto.getEmail());
-		user.setPassword(userDto.getPassword());
+		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
 		return user;
 	}
