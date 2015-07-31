@@ -32,6 +32,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		throws UsernameNotFoundException {
  
 		com.oguchok.isite.persistence.model.User user = userRepository.findByUsername(username);
+		if (user == null) {
+			throw new UsernameNotFoundException("No user found with username: " +
+					username);
+		}
+		
 		List<GrantedAuthority> authorities = 
                                       buildUserAuthority(user.getRoles());
  

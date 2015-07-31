@@ -22,7 +22,10 @@ public class UserDTO {
 	@NotNull
 	@NotEmpty
 	private String password;
-	private String mathcingPassword;
+
+	@NotNull
+	@NotEmpty
+	private String matchingPassword;
 	
 	public String getUsername() {
 		return username;
@@ -42,10 +45,10 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getMathcingPassword() {
-		return mathcingPassword;
+	public String getMatchingPassword() {
+		return matchingPassword;
 	}
-	public void setMathcingPassword(String mathcingPassword) {
-		this.mathcingPassword = mathcingPassword;
+	public void setMatchingPassword(String matchingPassword) {
+		this.matchingPassword = matchingPassword;
 	}
 }

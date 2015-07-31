@@ -7,11 +7,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><spring:message code="labe.form.title"></spring:message></title>
+<title><spring:message code="label.form.registration.title"></spring:message></title>
 </head>
 <body>
 	<h1>
-		<spring:message code="label.form.title"></spring:message>
+		<spring:message code="label.form.registration.title"></spring:message>
 	</h1>
 	<form:form modelAttribute="user" method="POST" enctype="utf8">
 		<br>
