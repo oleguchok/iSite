@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 		
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
 
 		ModelAndView model = new ModelAndView();
@@ -58,7 +58,6 @@ public class HomeController {
 
 	}
 
-	// customize the error message
 	private String getErrorMessage(HttpServletRequest request, String key) {
 
 		Exception exception = (Exception) request.getSession().getAttribute(key);
@@ -75,13 +74,11 @@ public class HomeController {
 		return error;
 	}
 
-	// for 403 access denied page
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public ModelAndView accesssDenied() {
 
 		ModelAndView model = new ModelAndView();
 
-		// check if user is login
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();

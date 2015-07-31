@@ -161,10 +161,25 @@
  
 		<!-- Hibernate ORM -->
 		<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+	    <dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.1.1.Final</version>
 		</dependency>
+		<dependency>
+	        <groupId>org.hibernate.common</groupId>
+	        <artifactId>hibernate-commons-annotations</artifactId>
+	        <version>4.0.4.Final</version>
+	    </dependency>
 	
 		<!-- Test -->
 		<dependency>
