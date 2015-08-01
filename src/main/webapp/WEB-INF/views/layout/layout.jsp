@@ -9,15 +9,13 @@
 	href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.min.css" />
 </head>
 <body>
-	<div>
+	<div class="container">
 		<tiles:insertAttribute name="header" />
-		<div class="main">
-			<div class="body">
-				<tiles:insertAttribute name="body" />
-			</div>
-		</div>
+		
+		<tiles:insertAttribute name="body" />
+	
 		<tiles:insertAttribute name="footer" />
-	</div>
+	</div>	
 	
 	<script src="resources/js/jquery-1.11.3.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
