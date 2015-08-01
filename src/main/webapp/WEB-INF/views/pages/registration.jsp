@@ -4,51 +4,42 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page session="false"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><spring:message code="label.form.registration.title"></spring:message></title>
+	<spring:message code="label.signInForm.password" var="password"></spring:message>
+	<spring:message code="label.signInForm.username" var="username"></spring:message>
+	<spring:message code="label.input.matchingPassword" var="matchingPassword"></spring:message>
+	<title><spring:message code="label.form.registration.title"></spring:message></title>
+	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/styles.css"/>
 </head>
 <body>
-	<h1>
+	<h1 id="header-center">
 		<spring:message code="label.form.registration.title"></spring:message>
 	</h1>
-	<form:form modelAttribute="user" method="POST" enctype="utf8">
-		<br>
-        <tr>
-        <td><label><spring:message code="label.user.username"></spring:message>
-            </label>
-        </td>
-        <td><form:input path="username" value="" /></td>
-        <form:errors path="username" element="div"/>
-    </tr>
-    <tr>
-        <td><label><spring:message code="label.user.email"></spring:message>
-            </label>
-        </td>
-        <td><form:input path="email" value="" /></td>
-        <form:errors path="email" element="div" />
-    </tr>
-    <tr>
-        <td><label><spring:message code="label.user.password"></spring:message>
-            </label>
-        </td>
-        <td><form:input path="password" value="" type="password" /></td>
-        <form:errors path="password" element="div" />
-    </tr>
-    <tr>
-        <td><label><spring:message code="label.user.confirmPass"></spring:message>
-            </label>
-        </td>
-        <td><form:input path="matchingPassword" value="" type="password" /></td>
-        <form:errors element="div" />
-    </tr>
-        <button type="submit"><spring:message code="label.form.submit"></spring:message>
-        </button>
-	</form:form>
-	<br>
-	<a href="<c:url value="login.html" />">
-        <spring:message code="label.form.loginLink"></spring:message>
-    </a>
+	<div class="container" id="user-auth-template">
+      <form:form modelAttribute="user" class="form-registration" enctype="utf8" method='POST'>
+        <label for="username" >${username }</label>
+        <form:input type="text" id="username" path="username" class="form-control" placeholder="${username }"/>
+        <form:errors path="username" element="div" id="error-text"/>
+        <label for="email" >Email</label>
+        <form:input type="text" id="email" path="email" class="form-control" placeholder="Email"/>
+        <form:errors path="email" element="div" id="error-text"/>
+        <label for="password">${password }</label>
+        <form:input type="password" id="password" path="password" class="form-control" placeholder="${password}"/>
+        <form:errors path="password" element="div" id="error-text"/>
+        <label for="matchingPassword" >${matchingPassword}</label>
+        <form:input type="password" id="matchingPassword" path="matchingPassword" class="form-control"
+        	 placeholder="${matchingPassword}"/>
+       	<form:errors element="div" id="error-text" />
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">
+        	<spring:message code="label.navbar.signUp"></spring:message>
+        </button>        
+      </form:form>
+      <a href="<c:url value="login.html" />">
+	  	<spring:message code="label.form.loginLink"></spring:message>
+	  </a>
+    </div>	
 </body>
 </html>

@@ -1,6 +1,14 @@
-#signin-template {
+#user-auth-template {
 	height: 400;
 	width: 400;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#header-center {
+	text-align: center;
+}
+
+#error-text {
+	color: red;
 }

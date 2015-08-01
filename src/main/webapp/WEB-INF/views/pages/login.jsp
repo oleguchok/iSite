@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/styles.css"/>
 </head>
 <body>		
-	<div class="container" id="signin-template">
+	<div class="container" id="user-auth-template">
 		<c:if test="${not empty error}">
 			<div class="alert alert-danger" role="alert">${error}</div>
 		</c:if>
@@ -19,9 +19,9 @@
       <form class="form-signin" action="<c:url value='/login'/>" method='POST'>
         <h2 class="form-signin-heading"><spring:message code="label.signInForm.title"></spring:message></h2>
         <label for="username" class="sr-only">${username }</label>
-        <input type="text" name="username" class="form-control" placeholder="${username }">
+        <input type="text" id="username" name="username" class="form-control" placeholder="${username }">
         <label for="password" class="sr-only">${password }</label>
-        <input type="password" name="password" class="form-control" placeholder="${password}">
+        <input type="password" id="password" name="password" class="form-control" placeholder="${password}">
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> <spring:message code="label.signInForm.remember"></spring:message>

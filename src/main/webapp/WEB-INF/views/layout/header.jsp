@@ -10,15 +10,15 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><spring:message code="label.projectName"></spring:message></a>
+            <a class="navbar-brand" href="./"><spring:message code="label.projectName"></spring:message></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#"><spring:message code="label.navbar.home"></spring:message></a></li>
+             
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="./"><spring:message code="label.navbar.signIn"></spring:message></a></li>
-              <li><a href="./"><spring:message code="label.navbar.signUp"></spring:message></a></li>
+              <li><a href="./login"><spring:message code="label.navbar.signIn"></spring:message></a></li>
+              <li><a href="./registration"><spring:message code="label.navbar.signUp"></spring:message></a></li>
             </ul>
           </div>
         </div>
