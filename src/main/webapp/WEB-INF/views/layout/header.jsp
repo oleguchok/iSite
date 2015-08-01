@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=windows-1251" language="java"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<html>
 <header>
 	<nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -25,4 +24,3 @@
         </div>
       </nav>
 </header>
-</html>

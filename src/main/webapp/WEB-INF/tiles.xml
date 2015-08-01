@@ -14,4 +14,10 @@
     <definition name="index" extends="mainLayout">
         <put-attribute name="body" value="/WEB-INF/views/pages/index.jsp"/>
     </definition>
+    <definition name="login" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/login.jsp"/>
+    </definition>
+    <definition name="registration" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/registration.jsp"></put-attribute>
+    </definition>
 </tiles-definitions>
