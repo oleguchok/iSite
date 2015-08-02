@@ -12,3 +12,7 @@
 #error-text {
 	color: red;
 }
+
+#languages-flags {
+	float: right;
+}
