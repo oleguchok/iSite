@@ -24,7 +24,7 @@
         <input type="password" id="password" name="password" class="form-control" placeholder="${password}">
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> <spring:message code="label.signInForm.remember"></spring:message>
+            <input type="checkbox" name="remember-me"> <spring:message code="label.signInForm.remember"></spring:message>
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">

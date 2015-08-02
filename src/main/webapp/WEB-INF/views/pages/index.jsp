@@ -1,6 +1,5 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
 <body>
@@ -15,6 +14,7 @@
           </a>
         </p>
       </div>
+      
 
 	<sec:authorize access="hasRole('ROLE_USER')">
 		<!-- For login user -->
@@ -38,5 +38,6 @@
 
 
 	</sec:authorize>
+
 </body>
 </html>

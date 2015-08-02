@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=windows-1251" language="java"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <header>
+	<script type="text/coffeescript" src="resources/coffee/scripts.coffee"></script>
 	<nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -16,11 +19,28 @@
             <ul class="nav navbar-nav">
              
             </ul>
+            <c:url value="/logout" var="logoutUrl" />
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="./login"><spring:message code="label.navbar.signIn"></spring:message></a></li>
-              <li><a href="./registration"><spring:message code="label.navbar.signUp"></spring:message></a></li>
+              <li>
+              	<sec:authorize access="isAnonymous()">
+              		<a href="./login"><spring:message code="label.navbar.signIn"></spring:message></a>
+              	</sec:authorize>
+              </li>
+              <li>
+              	<sec:authorize access="isAnonymous()">
+              	<a href="./registration"><spring:message code="label.navbar.signUp"></spring:message></a>
+              	</sec:authorize>
+              </li>
+              <li>
+              	<sec:authorize access="isAuthenticated()">							
+              		<a onclick="formSubmit('logoutForm');"><spring:message code="label.logout"></spring:message></a>
+              	</sec:authorize>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
+      <form action="${logoutUrl}" method="post" id="logoutForm">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	  </form>	
 </header>

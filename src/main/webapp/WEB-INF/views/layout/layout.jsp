@@ -19,5 +19,6 @@
 	
 	<script src="resources/js/jquery-1.11.3.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.rawgit.com/jashkenas/coffeescript/master/extras/coffee-script.js"></script>
 </body>
 </html>
