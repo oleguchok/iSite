@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +33,9 @@ public class UserLoginRegistrationController {
 		
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 	
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
@@ -119,7 +124,7 @@ public class UserLoginRegistrationController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public ModelAndView registerUserAccount
 	      (@ModelAttribute("user") @Valid UserDTO accountDto, 
-	      BindingResult result, WebRequest request, Errors errors) {    
+	      BindingResult result, HttpServletRequest request, Errors errors) {    
 	    User registered = new User();
 	    if (!result.hasErrors()) {
 	        registered = createUserAccount(accountDto, result);
@@ -131,8 +136,18 @@ public class UserLoginRegistrationController {
 	    	return new ModelAndView("registration", "user", accountDto);
 	    }
 	    else {
+	    	loggUserAfterSuccessfulRegistration(registered.getUsername());
 	    	return new ModelAndView("index", "user", accountDto);
 	    }
+	}
+	
+	private void loggUserAfterSuccessfulRegistration(String username) {
+		
+		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+    	Authentication auth = 
+    			new UsernamePasswordAuthenticationToken(userDetails.getUsername(),
+    					userDetails.getPassword(), userDetails.getAuthorities());
+    	SecurityContextHolder.getContext().setAuthentication(auth);
 	}
 	
 	private User createUserAccount(UserDTO accountDto, BindingResult result) {

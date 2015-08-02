@@ -33,7 +33,7 @@
               </li>
               <li>
               	<sec:authorize access="isAuthenticated()">							
-              		<a onclick="formSubmit('logoutForm');"><spring:message code="label.logout"></spring:message></a>
+              		<a onclick="formSubmit('logoutForm');" id="link"><spring:message code="label.logout"></spring:message></a>
               	</sec:authorize>
               </li>
             </ul>

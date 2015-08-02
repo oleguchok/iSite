@@ -11,7 +11,6 @@
 	<spring:message code="label.signInForm.username" var="username"></spring:message>
 	<spring:message code="label.input.matchingPassword" var="matchingPassword"></spring:message>
 	<title><spring:message code="label.form.registration.title"></spring:message></title>
-	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/styles.css"/>
 </head>
 <body>
 	<h1 id="header-center">

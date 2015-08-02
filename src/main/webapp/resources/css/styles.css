@@ -16,3 +16,8 @@
 #languages-flags {
 	float: right;
 }
+
+#link {
+	cursor: pointer; 
+	cursor: hand;
+}

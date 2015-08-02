@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/styles.css"/>
 </head>
 <body>
 	<div class="container">
