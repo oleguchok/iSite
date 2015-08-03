@@ -1,15 +1,19 @@
 package com.oguchok.isite.persistence.model;
 
 import java.util.Collection;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,10 +42,21 @@ public class User{
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean enabled;
 	
+	@OneToMany(orphanRemoval=true, mappedBy = "user", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    private Set<Project> projects;
+	
 	public User() {
 		
 		super();
 		this.enabled = false;
+	}
+
+	public Set<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
 	}
 
 	public int getId() {
