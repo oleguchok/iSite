@@ -24,7 +24,7 @@ public class Project {
 	@JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private User user;
 	
-	@Column(name="projectName", unique = true, nullable = false)
+	@Column(name="project_name", unique = true, nullable = false)
     private String projectName;
 	
 	@Column(name="style")
