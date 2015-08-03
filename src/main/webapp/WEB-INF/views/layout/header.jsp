@@ -17,7 +17,11 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-             
+            	<li>
+            		<sec:authorize access="isAuthenticated()">
+            			<a href="./myProjects"><spring:message code="label.myProjects"></spring:message></a>
+            		</sec:authorize>
+            	</li> 
             </ul>
             <c:url value="/logout" var="logoutUrl" />
             <ul class="nav navbar-nav navbar-right">
@@ -32,7 +36,7 @@
               	</sec:authorize>
               </li>
               <li>
-              	<sec:authorize access="isAuthenticated()">							
+              	<sec:authorize access="isAuthenticated()">              							
               		<a onclick="formSubmit('logoutForm');" id="link"><spring:message code="label.logout"></spring:message></a>
               	</sec:authorize>
               </li>

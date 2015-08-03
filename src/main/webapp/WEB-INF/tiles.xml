@@ -29,4 +29,7 @@
     <definition name="emailError" extends="mainLayout">
     	<put-attribute name="body" value="/WEB-INF/views/pages/emailError.jsp"></put-attribute>
     </definition>
+    <definition name="myProjects" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/myProjects.jsp"></put-attribute>
+    </definition>
 </tiles-definitions>
