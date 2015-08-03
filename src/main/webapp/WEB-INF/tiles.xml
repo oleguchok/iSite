@@ -20,4 +20,13 @@
     <definition name="registration" extends="mainLayout">
     	<put-attribute name="body" value="/WEB-INF/views/pages/registration.jsp"></put-attribute>
     </definition>
+    <definition name="badUser" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/badUser.jsp"></put-attribute>
+    </definition>
+    <definition name="registrationConfirm" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/registrationConfirm.jsp"></put-attribute>
+    </definition>
+    <definition name="emailError" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/emailError.jsp"></put-attribute>
+    </definition>
 </tiles-definitions>

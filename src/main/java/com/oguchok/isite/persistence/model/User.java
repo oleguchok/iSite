@@ -38,7 +38,11 @@ public class User{
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean enabled;
 	
-	public User() {}
+	public User() {
+		
+		super();
+		this.enabled = false;
+	}
 
 	public int getId() {
 		return id;
@@ -80,7 +84,7 @@ public class User{
 		this.roles = roles;
 	}
 
-	public boolean getEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 

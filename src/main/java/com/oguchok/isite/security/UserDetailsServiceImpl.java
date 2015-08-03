@@ -46,7 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
  
 	private User buildUserForAuthentication(com.oguchok.isite.persistence.model.User user, 
 		List<GrantedAuthority> authorities) {
-		return new User(user.getUsername(), user.getPassword(), true, true, true,
+		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true,
 				true, authorities);
 	}
  

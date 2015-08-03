@@ -2,6 +2,7 @@ package com.oguchok.isite.config.core;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.oguchok.isite.config.AppConfig;
 import com.oguchok.isite.config.JpaConfig;
 import com.oguchok.isite.config.WebConfig;
 
@@ -9,7 +10,7 @@ public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServ
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { JpaConfig.class };
+		return new Class[] { JpaConfig.class, AppConfig.class };
 	}
 
 	@Override

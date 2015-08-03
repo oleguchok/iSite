@@ -9,8 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.oguchok.isite.persistence.model.User;
+import com.oguchok.isite.persistence.model.VerificationToken;
 import com.oguchok.isite.persistence.repository.RoleRepository;
 import com.oguchok.isite.persistence.repository.UserRepository;
+import com.oguchok.isite.persistence.repository.VerificationTokenRepository;
 import com.oguchok.isite.validation.exception.RegisterParameterExistsException;
 
 @Service
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private VerificationTokenRepository tokenRepository;
 	
 	@Transactional
 	@Override
@@ -73,4 +78,26 @@ public class UserServiceImpl implements UserService{
 		}
 		return false;
 	}
+
+	@Override
+    public User getUser(String verificationToken) {
+        User user = tokenRepository.findByToken(verificationToken).getUser();
+        return user;
+    }
+     
+    @Override
+    public VerificationToken getVerificationToken(String VerificationToken) {
+        return tokenRepository.findByToken(VerificationToken);
+    }
+     
+    @Override
+    public void saveRegisteredUser(User user) {
+        userRepository.save(user);
+    }
+     
+    @Override
+    public void createVerificationToken(User user, String token) {
+        VerificationToken myToken = new VerificationToken(token, user);
+        tokenRepository.save(myToken);
+    }
 }

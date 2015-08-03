@@ -1,9 +1,14 @@
 package com.oguchok.isite.web.controller;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -23,7 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oguchok.isite.event.OnRegistrationCompleteEvent;
 import com.oguchok.isite.persistence.model.User;
+import com.oguchok.isite.persistence.model.VerificationToken;
 import com.oguchok.isite.persistence.service.UserDTO;
 import com.oguchok.isite.persistence.service.UserService;
 import com.oguchok.isite.validation.exception.RegisterParameterExistsException;
@@ -35,7 +42,13 @@ public class UserLoginRegistrationController {
 	private UserService userService;
 	
 	@Autowired
+	private MessageSource messages;
+	
+	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private ApplicationEventPublisher eventPublisher;
 	
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
@@ -136,9 +149,41 @@ public class UserLoginRegistrationController {
 	    	return new ModelAndView("registration", "user", accountDto);
 	    }
 	    else {
+	    	try {
+	            String appUrl = request.getContextPath();
+	            eventPublisher.publishEvent(new OnRegistrationCompleteEvent
+	              (registered, request.getLocale(), appUrl));
+	        } catch (Exception me) {
+	            return new ModelAndView("emailError", "user", accountDto);
+	        }
+	    	
 	    	loggUserAfterSuccessfulRegistration(registered.getUsername());
 	    	return new ModelAndView("index", "user", accountDto);
 	    }
+	}
+	
+	@RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
+	public String confirmRegistration
+	      (WebRequest request, Model model, @RequestParam("token") String token) {
+	    Locale locale = request.getLocale();
+	     
+	    VerificationToken verificationToken = userService.getVerificationToken(token);
+	    if (verificationToken == null) {
+	        String message = messages.getMessage("auth.message.invalidToken", null, locale);
+	        model.addAttribute("message", message);
+	        return "redirect:/badUser.html?lang=" + locale.getLanguage();
+	    }
+	     
+	    User user = verificationToken.getUser();
+	    Calendar cal = Calendar.getInstance();
+	    if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+	        model.addAttribute("message", messages.getMessage("auth.message.expired", null, locale));
+	        return "redirect:/badUser.html?lang=" + locale.getLanguage();
+	    } 
+	     
+	    user.setEnabled(true); 
+	    userService.saveRegisteredUser(user); 
+	    return "redirect:/login.html"; 
 	}
 	
 	private void loggUserAfterSuccessfulRegistration(String username) {

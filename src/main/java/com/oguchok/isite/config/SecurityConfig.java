@@ -1,5 +1,7 @@
 package com.oguchok.isite.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	@Qualifier("userDetailsService")
 	UserDetailsService userDetailsService;
+	
+	@Autowired
+	DataSource dataSource;
  
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -41,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    		.usernameParameter("username")
 	    		.passwordParameter("password")
 	    		.and()
-	    		.rememberMe()
+	    	.rememberMe()
+	    		.tokenValiditySeconds(186400)
 	    		.and()
 	    	.logout()
 	    		.logoutSuccessUrl("/")
@@ -51,7 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    		.and().
 	    	exceptionHandling().accessDeniedPage("/403");
 	}
- 
+
+	
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
