@@ -55,8 +55,6 @@ public class UserLoginRegistrationController {
 	public ModelAndView defaultPage() {
 
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security + Hibernate Example");
-		model.addObject("message", "This is default page!");
 		model.setViewName("index");
 		return model;
 
@@ -159,7 +157,10 @@ public class UserLoginRegistrationController {
 	        }
 	    	
 	    	loggUserAfterSuccessfulRegistration(registered.getUsername());
-	    	return new ModelAndView("index", "user", accountDto);
+	    	ModelAndView model = new ModelAndView("index", "user", accountDto);
+	    	model.addObject("registerInformation", messages.getMessage("message.regSucc",
+	    			null, LocaleContextHolder.getLocale()));
+	    	return model;
 	    }
 	}
 	

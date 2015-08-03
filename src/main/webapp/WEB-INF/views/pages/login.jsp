@@ -1,25 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@page session="true"%>
-<c:if test="${param.error != null}">
-    <c:choose>
-        <c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'User is disabled'}">
-            <div class="alert alert-error">
-                <spring:message code="auth.message.disabled"></spring:message>
-            </div>
-        </c:when>
-        <c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'User account has expired'}">
-            <div class="alert alert-error">
-                <spring:message code="auth.message.expired"></spring:message>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <div class="alert alert-error">
-          <spring:message code="message.badCredentials"></spring:message>
-           </div>
-        </c:otherwise>
-    </c:choose>
-</c:if>
 <html>
 <head>
 	<spring:message code="label.signInForm.password" var="password"></spring:message>
@@ -29,6 +10,25 @@
 </head>
 <body>		
 	<div class="container" id="user-auth-template">
+		<c:if test="${param.error != null}">
+		    <c:choose>
+		        <c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'User is disabled'}">
+		            <div class="alert alert-error">
+		                <spring:message code="auth.message.disabled"></spring:message>
+		            </div>
+		        </c:when>
+		        <c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'User account has expired'}">
+		            <div class="alert alert-error">
+		                <spring:message code="auth.message.expired"></spring:message>
+		            </div>
+		        </c:when>
+		        <c:otherwise>
+		            <div class="alert alert-error">
+		          <spring:message code="message.badCredentials"></spring:message>
+		           </div>
+		        </c:otherwise>
+		    </c:choose>
+		</c:if>
 		<c:if test="${not empty error}">
 			<div class="alert alert-danger" role="alert">${error}</div>
 		</c:if>

@@ -3,6 +3,10 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
 <body>
+	<c:if test="${not empty registerInformation}">
+		<div class="alert alert-danger" role="alert">${registerInformation}</div>
+	</c:if>
+
 	<div class="jumbotron">
         <h1><spring:message code="label.projectName"></spring:message></h1>
         <p>
@@ -14,30 +18,5 @@
           </a>
         </p>
       </div>
-      
-
-	<sec:authorize access="hasRole('ROLE_USER')">
-		<!-- For login user -->
-		<c:url value="/logout" var="logoutUrl" />
-		<form action="${logoutUrl}" method="post" id="logoutForm">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-		</form>
-		<script>
-			function formSubmit() {
-				document.getElementById("logoutForm").submit();
-			}
-		</script>
-
-		<c:if test="${pageContext.request.userPrincipal.name != null}">
-			<h2>
-				User : ${pageContext.request.userPrincipal.name} | <a
-					href="javascript:formSubmit()"> Logout</a>
-			</h2>
-		</c:if>
-
-
-	</sec:authorize>
-
 </body>
 </html>
