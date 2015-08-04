@@ -18,8 +18,8 @@
 		<tiles:insertAttribute name="footer" />
 	</div>	
 	
-	<script src="resources/js/jquery-1.11.3.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdn.rawgit.com/jashkenas/coffeescript/master/extras/coffee-script.js"></script>
 </body>
 </html>
