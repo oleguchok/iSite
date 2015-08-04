@@ -19,7 +19,7 @@
             <ul class="nav navbar-nav">
             	<li>
             		<sec:authorize access="isAuthenticated()">
-            			<a href="./myProjects"><spring:message code="label.myProjects"></spring:message></a>
+            			<a href="./projects"><spring:message code="label.myProjects"></spring:message></a>
             		</sec:authorize>
             	</li> 
             </ul>

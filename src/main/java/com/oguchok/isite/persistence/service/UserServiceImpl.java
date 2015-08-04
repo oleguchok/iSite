@@ -100,4 +100,10 @@ public class UserServiceImpl implements UserService{
         VerificationToken myToken = new VerificationToken(token, user);
         tokenRepository.save(myToken);
     }
+
+	@Override
+	public User getUserByName(String username) {
+		
+		return userRepository.findByUsername(username);
+	}
 }
