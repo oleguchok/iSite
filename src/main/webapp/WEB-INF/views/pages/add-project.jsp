@@ -14,9 +14,10 @@
 		<spring:message code="label.addProject"></spring:message>
 	</h1>
 	<div class="container" id="user-auth-template">
-		<form:form modelAttribute="project" class="form-registration" enctype="utf8" method='POST'>
+		<form:form modelAttribute="project" id="projForm" class="form-registration" enctype="utf8" method='POST'>
 	        <label for="projectName" >${projectName }</label>
-	        <form:input type="text" id="projectName" path="projectName" class="form-control" placeholder="${projectName }"/>
+	        <form:input type="text" id="projectName" path="projectName" name="projectName" class="form-control" placeholder="${projectName }"/>
+	        <div id="error-text"></div>
 	        <label for="style" >${style }</label><br/>
 	        <form:radiobutton checked="checked" value="light" id="style" path="style" placeholder="${style }"/>Light
 	        <form:radiobutton value="dark" id="style" path="style" placeholder="${style }"/>Dark<br/>

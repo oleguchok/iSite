@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,10 +33,8 @@ public class ProjectController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getMyProjects(HttpServletRequest request) {
 	
-		User user  = getCurrentUser(request);
 		ModelAndView model = new ModelAndView("projects");
-		//List<Project> projects = projectService.getProjectsByUserId(user.getId());
-		model.addObject("projects", user.getProjects());
+		model.addObject("projects", getCurrentUser(request).getProjects());
 		return model;
 	}
 	
@@ -51,7 +48,7 @@ public class ProjectController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView addProject(@ModelAttribute("project") Project project,
-			BindingResult result, HttpServletRequest request) {
+			HttpServletRequest request) {
 		
 		User user  = getCurrentUser(request);
 		project.setUser(user);
