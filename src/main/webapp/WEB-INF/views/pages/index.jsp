@@ -13,9 +13,16 @@
         	<spring:message code="label.aboutSite"></spring:message>
         </p>
         <p>
-          <a class="btn btn-lg btn-primary" href="" role="button">
-          	<spring:message code="label.start"></spring:message>
-          </a>
+        	<sec:authorize access="isAuthenticated()">
+	          <a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/projects" role="button">
+	          	<spring:message code="label.start"></spring:message>
+	          </a>
+          	</sec:authorize>
+          	<sec:authorize access="isAnonymous()">
+          	  <a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/login" role="button">
+	          	<spring:message code="label.start"></spring:message>
+	          </a>	
+          	</sec:authorize>
         </p>
       </div>
 </body>
