@@ -7,4 +7,6 @@ import com.oguchok.isite.persistence.model.Project;
 public interface ProjectService {
 
 	List<Project> getProjectsByUserId(int id);
+	
+	void saveProject(Project project);
 }

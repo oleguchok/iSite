@@ -1,6 +1,5 @@
 package com.oguchok.isite.persistence.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -21,10 +20,14 @@ public class ProjectServiceImpl implements ProjectService{
 	@Override
 	public List<Project> getProjectsByUserId(int id) {
 		
-		Project project = projectRepository.findByUserId(id);
-		List<Project> projects = new ArrayList<Project>();
-		projects.add(project);
+		List<Project> projects = projectRepository.findByUserId(id);
 		return projects;
+	}
+
+	@Override
+	public void saveProject(Project project) {
+		
+		projectRepository.save(project);
 	}
 
 }

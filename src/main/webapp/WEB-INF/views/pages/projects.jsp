@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,23 +16,21 @@
           <h1 id="header-center"><spring:message code="label.myProjects"></spring:message></h1>
            
           <div class="row">
+          <c:forEach items="${projects }" var="project">
             <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <h2>${project.projectName }</h2>
+              <p><spring:message code="label.style"></spring:message>: ${project.style }</p>
+              <p><spring:message code="label.menu"></spring:message>: ${project.menu }</p>
               <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+            </div>
+           </c:forEach>
           </div>
         </div>
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="#" class="list-group-item active"><spring:message code="label.myProjects"></spring:message></a>
-            <a href="#" class="list-group-item">
+            <a href="${pageContext.request.contextPath}/projects" class="list-group-item active"><spring:message code="label.myProjects"></spring:message></a>
+            <a href="${pageContext.request.contextPath}/projects/add" class="list-group-item">
             	<span class="glyphicon glyphicon-plus">
             		<spring:message code="label.addProject"></spring:message>
             	</span>
