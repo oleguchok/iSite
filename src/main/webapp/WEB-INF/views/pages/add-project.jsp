@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,11 @@
 		<spring:message code="label.addProject"></spring:message>
 	</h1>
 	<div class="container" id="user-auth-template">
+		<c:if test="${error != null}">
+			<div class="alert alert-error">
+		    	${error }
+		    </div>
+		</c:if>
 		<form:form modelAttribute="project" id="projForm" class="form-registration" enctype="utf8" method='POST'>
 	        <label for="projectName" >${projectName }</label>
 	        <form:input type="text" id="projectName" path="projectName" name="projectName" class="form-control" placeholder="${projectName }"/>

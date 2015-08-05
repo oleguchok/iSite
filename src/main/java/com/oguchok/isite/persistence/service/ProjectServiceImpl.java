@@ -30,4 +30,10 @@ public class ProjectServiceImpl implements ProjectService{
 		projectRepository.save(project);
 	}
 
+	@Override
+	public Project getProjectByName(String projectName) {
+		
+		return projectRepository.findByProjectName(projectName);
+	}
+
 }

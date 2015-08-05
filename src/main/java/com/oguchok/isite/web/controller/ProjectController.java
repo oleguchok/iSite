@@ -3,6 +3,8 @@ package com.oguchok.isite.web.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +23,9 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private MessageSource messages;
 	
 	@Autowired
 	private UserService userService;
@@ -50,11 +55,31 @@ public class ProjectController {
 	public ModelAndView addProject(@ModelAttribute("project") Project project,
 			HttpServletRequest request) {
 		
-		User user  = getCurrentUser(request);
-		project.setUser(user);
-		projectService.saveProject(project);
 		ModelAndView model = new ModelAndView("projects");
-		model.addObject("projects", projectService.getProjectsByUserId(user.getId()));
-		return model;		
+		if (isProjectExist(project.getProjectName())){
+			
+			model.addObject("error", messages.getMessage("message.existError",
+	    			null, LocaleContextHolder.getLocale()));
+			model.setViewName("add");
+			return model.addObject("project", project);
+		} else {
+		
+			User user  = getCurrentUser(request);
+			project.setUser(user);
+			projectService.saveProject(project);
+			model.addObject("projects", projectService.getProjectsByUserId(user.getId()));
+			return model;
+		}
+	}
+	
+	private boolean isProjectExist(String projectName) {
+		
+		Project project = projectService.getProjectByName(projectName);
+		if (project == null) {
+			return false;
+		} else {
+			return true;
+		}
+		
 	}
 }

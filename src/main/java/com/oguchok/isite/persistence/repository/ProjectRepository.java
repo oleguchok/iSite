@@ -9,4 +9,6 @@ import com.oguchok.isite.persistence.model.Project;
 public interface ProjectRepository extends JpaRepository<Project, Integer>{
 
 	List<Project> findByUserId(int id);
+	
+	Project findByProjectName(String projectName);
 }
