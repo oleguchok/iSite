@@ -21,7 +21,10 @@
               <h2>${project.projectName }</h2>
               <p><spring:message code="label.style"></spring:message>: ${project.style }</p>
               <p><spring:message code="label.menu"></spring:message>: ${project.menu }</p>
-              <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+              <p><a class="btn btn-default"
+              	href="${pageContext.request.contextPath}/projects/${project.projectName }/1" role="button">
+              	<spring:message code="label.viewProj"></spring:message> »
+              </a></p>
             </div>
            </c:forEach>
           </div>

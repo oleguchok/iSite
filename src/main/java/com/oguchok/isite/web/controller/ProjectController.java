@@ -8,12 +8,14 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oguchok.isite.persistence.model.Project;
 import com.oguchok.isite.persistence.model.User;
+import com.oguchok.isite.persistence.service.PageService;
 import com.oguchok.isite.persistence.service.ProjectService;
 import com.oguchok.isite.persistence.service.UserService;
 
@@ -29,6 +31,9 @@ public class ProjectController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PageService pageService;
 	
 	User getCurrentUser(HttpServletRequest request){
         
@@ -81,5 +86,15 @@ public class ProjectController {
 			return true;
 		}
 		
+	}
+	
+	@RequestMapping(value = "/{projectName}/{pageNumber}", method = RequestMethod.GET)
+	public String getProjectPage(@PathVariable String projectName,
+			@PathVariable int pageNumber, Model model) {
+		
+		Project project = projectService.getProjectByName(projectName);
+		model.addAttribute("projectName", projectName);
+		model.addAttribute("page", pageService.getProjectPage(project.getId(), pageNumber));
+		return "page";
 	}
 }

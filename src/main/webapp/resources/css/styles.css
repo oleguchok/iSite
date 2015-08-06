@@ -25,3 +25,19 @@
 #style, #menu {
 	width: 8%;
 }
+
+.draggable { 
+	color:red;
+}
+
+.hoverDroppable {
+	background-color: lightgreen;
+}
+
+.activeDroppable {
+	background-color: #eeffee;
+}
+
+.dropwell {
+	height: 50%;
+}

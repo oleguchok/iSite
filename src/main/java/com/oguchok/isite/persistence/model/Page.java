@@ -26,4 +26,39 @@ public class Page {
 	
 	@Column(name = "html")
 	private String html;
+	
+	@Column(name = "number")
+	private int pageNumber;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
+	}
+
+	public int getNumber() {
+		return pageNumber;
+	}
+
+	public void setNumber(int number) {
+		this.pageNumber = number;
+	}
 }

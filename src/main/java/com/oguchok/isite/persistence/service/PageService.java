@@ -9,4 +9,6 @@ public interface PageService {
 	List<Page> getProjectPages(int projectId);
 	
 	void savePage(Page page);
+	
+	Page getProjectPage(int projectId, int pageNumber);
 }

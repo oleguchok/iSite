@@ -28,4 +28,10 @@ public class PageServiceImpl implements PageService{
 		pageRepository.save(page);
 	}
 
+	@Override
+	public Page getProjectPage(int projectId, int pageNumber) {
+		
+		return pageRepository.findByProjectIdAndPageNumber(projectId, pageNumber);
+	}
+
 }

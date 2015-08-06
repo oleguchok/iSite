@@ -9,4 +9,6 @@ import com.oguchok.isite.persistence.model.Page;
 public interface PageRepository extends JpaRepository<Page, Integer>{
 
 	List<Page> findByProjectId(int projectId);
+	
+	Page findByProjectIdAndPageNumber(int projectId, int pageNumber);
 }
