@@ -4,57 +4,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.min.css" />
-<title>${projectName }</title>
+	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.min.css" />
+	<title>${projectName }</title>
+	<script src="https://cdn.rawgit.com/showdownjs/showdown/1.2.2/dist/showdown.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/resources/js/page.js"></script>
 </head>
 <body>
 <script>
-function makeDraggable() {
-	$(".selectorField").draggable({ 
-		helper: "clone",
-		stack: "div",
-		appendTo: "body",
-		cursor: "move", 
-		cancel: null  
-	});
-}
-
-function docReady() {
-	
-	makeDraggable();
-	
-	$(".droppedFields").droppable({
-    	activeClass: "activeDroppable",
-    	hoverClass: "hoverDroppable",
-    	accept: ":not(.ui-sortable-helper)",
-    	drop: function( event, ui ) {
-			var draggable = ui.draggable;				
-			draggable = draggable.clone();
-			draggable.removeClass("selectorField");
-			draggable.addClass("droppedField");
-			draggable.appendTo(this);
-    	}
-    });
-	
-	$( ".droppedFields" ).sortable({
-        cancel: null, 
-        connectWith: ".droppedFields"
-    }).disableSelection();
-	
-	
-}
-
 function preview() {
-	console.log('Preview clicked');
-	
 	
 	var selected_content = $("#selected-content").clone();
 	selected_content.find("div").each(function(i,o) {
-							var obj = $(o)
-							obj.removeClass("draggableField ui-draggable well ui-droppable ui-sortable");
-						});
 	
-	selected_content.find("#form-title-div").remove();
+		var obj = $(o)
+		obj.removeClass("draggableField ui-draggable well ui-droppable ui-sortable");					
+	});
+	
+	selected_content.find('.markdown').each(function(i,o){
+		
+		var converter = new showdown.Converter();
+		var text = $(o).text();
+		html = converter.makeHtml(text);
+		$(o).html(unescape(html));
+	});
 	
 	var selected_content_html = selected_content.html();
 	
@@ -78,30 +50,46 @@ function preview() {
 		            	<spring:message code="label.toolbar"></spring:message>
 		            </span>
 		            <div class="list-group-item">
-			            <div id="draggablePanel" class="well well-mini selectorField draggableField">			            	
-			            	<spring:message code="label.markdown"></spring:message>
+			            <div id="draggablePanel" class="well well-mini selectorField draggableField markdown"><spring:message code="label.markdown"></spring:message>
 			            </div>
-		            </div>		       
+		            </div>	
+		            <div class="list-group-item">
+		            	<button class="btn btn-default" onclick="preview();"><spring:message code="label.preview"></spring:message></button>
+		            	<button class="btn btn-default"><spring:message code="label.addPage"></spring:message></button>
+		            </div>	    		          
 		      	</div>
 		    </div>	
             <div class="col-md-9 col-xs-9 col-sm-9" id="selected-content">
             	<div class="text-center">
                 	<h3>${projectName }</h3>
                 </div>                
-                <div class="row-fluid">
-                	<div class="well droppedFields col-md-6">
+                <div class="row-fluid" >
+                	<div class="well droppedFields col-md-12">
                 	
                 	</div>
                 	<div class="well droppedFields col-md-6">
                 	
                 	</div>
-                </div>                       
-             </div>
-    	</div>
-	</div>
-	<button onclick="preview();"></button>
+                	<div class="well droppedFields col-md-6">
+                	
+                	</div>                	
+                </div>                      
+            </div>       
+            <div class="col-md-6 pull-right" id="markdown-editor"> 
+	    		<textarea class="form-control" rows="5" id="textarea-editor"></textarea>
+	    		<div class="panel panel-footer clearfix">
+	    			<div class="btn-group pull-right">
+		    			<button class="btn btn-danger" value="Delete" onclick="deleteElem();">Delete</button>
+		    			<button class="btn btn-default" value="Save" onclick="saveText();">Save</button>
+	    			</div>	    				
+	    		</div>	  
+	  		</div>                      
+    	</div>  	
+	</div>	
+
 <script>
 	$(document).ready(docReady);
+	$('#markdown-editor').hide();
 </script>
 </body>
 </html>

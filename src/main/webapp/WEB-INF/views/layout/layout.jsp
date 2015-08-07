@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/styles.css"/>
 	<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
 	<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-ui.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -21,7 +22,7 @@
 	</div>	
 	
 	
-	<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.min.js"></script>
+	
 	<script src="${pageContext.servletContext.contextPath}/resources/js/jquery.validate.min.js"></script>	
 	<script src="${pageContext.servletContext.contextPath}/resources/js/jquery.js"></script>
 	<script type="text/javascript" src="https://cdn.rawgit.com/jashkenas/coffeescript/master/extras/coffee-script.js"></script>
