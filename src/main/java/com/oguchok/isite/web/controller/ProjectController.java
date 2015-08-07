@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oguchok.isite.persistence.model.Page;
 import com.oguchok.isite.persistence.model.Project;
 import com.oguchok.isite.persistence.model.User;
 import com.oguchok.isite.persistence.service.PageService;
@@ -88,13 +89,30 @@ public class ProjectController {
 		
 	}
 	
-	@RequestMapping(value = "/{projectName}/{pageNumber}", method = RequestMethod.GET)
-	public String getProjectPage(@PathVariable String projectName,
+	@RequestMapping(value = "/edit/{projectName}/{pageNumber}", method = RequestMethod.GET)
+	public String getEditProjectPage(@PathVariable String projectName,
 			@PathVariable int pageNumber, Model model) {
 		
 		Project project = projectService.getProjectByName(projectName);
 		model.addAttribute("projectName", projectName);
 		model.addAttribute("page", pageService.getProjectPage(project.getId(), pageNumber));
+		return "pageEditor";
+	}
+	
+	@RequestMapping(value = "/{projectName}/{pageNumber}", method = RequestMethod.GET)
+	public String getProjectPage(@PathVariable String projectName,
+			@PathVariable int pageNumber, Model model, HttpServletRequest request){
+		
+		Project project = projectService.getProjectByName(projectName);
+		model.addAttribute("projectName", projectName);
+		boolean isUserPage = false;
+		if (project.getUser().getUsername().equals(getCurrentUser(request).getUsername())) {
+			
+			isUserPage = true;
+		}
+		model.addAttribute("isUserPage", isUserPage);
+		Page page = pageService.getProjectPage(project.getId(), pageNumber);
+		model.addAttribute("content", page.getHtml());
 		return "page";
 	}
 }

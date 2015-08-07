@@ -34,6 +34,10 @@
     	<put-attribute name="body" value="/WEB-INF/views/pages/add-project.jsp"></put-attribute>
     </definition>
     <definition name="page" extends="mainLayout">
+    	<put-attribute name="head" value=""></put-attribute>
     	<put-attribute name="body" value="/WEB-INF/views/pages/page.jsp"></put-attribute>
+    </definition>
+    <definition name="pageEditor" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/pageEditor.jsp"></put-attribute>
     </definition>
 </tiles-definitions>
