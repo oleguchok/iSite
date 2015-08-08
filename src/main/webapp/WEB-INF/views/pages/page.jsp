@@ -8,24 +8,15 @@
 </head>
 <body>
 <div class="container">
+	<c:if test="${isUserPage == true }">
+		<div class="btn-group pull-right">
+			<button class="btn btn-default"></button>
+		    <button class="btn btn-default"><spring:message code="label.addPage"></spring:message></button>
+		</div>
+	</c:if>
 	<div class="row-fluid">
 		${content }
 	</div>
-	<c:if test="${isUserPage == true }">
-		<div class="col-md-3 col-xs-3 col-sm-3 sidebar-offcanvas" id="sidebar">
-		    	<div class="list-group">
-		            <span class="list-group-item active" id="header-center">
-		            	<spring:message code="label.toolbar"></spring:message>
-		            </span>
-		            <div class="list-group-item">
-			            <button class="btn btn-default"></button>
-		            </div>	
-		            <div class="list-group-item">
-		            	<button class="btn btn-default"><spring:message code="label.addPage"></spring:message></button>
-		            </div>	    		          
-		      	</div>
-		    </div>
-	</c:if>
 </div>
 </body>
 </html>

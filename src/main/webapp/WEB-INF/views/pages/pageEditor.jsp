@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,13 @@
 </head>
 <body>
 <script>
-function preview() {
+function preview() {	
+	
+	var win = window.open("about:blank");
+	win.document.write(getHtmlCode());
+}
+
+function getHtmlCode() {
 	
 	var selected_content = $("#selected-content").clone();
 	selected_content.find("div").each(function(i,o) {
@@ -37,9 +44,12 @@ function preview() {
 	dialogContent+= selected_content_html;
 	dialogContent+= '\n</body></html>';
 	
+	return dialogContent;
+}
+
+function passText() {
 	
-	var win = window.open("about:blank");
-	win.document.write(dialogContent);
+	$("#html").val(getHtmlCode());
 }
 </script>
 	<div class="container">
@@ -55,10 +65,15 @@ function preview() {
 		            </div>	
 		            <div class="list-group-item">
 		            	<button class="btn btn-default" onclick="preview();"><spring:message code="label.preview"></spring:message></button>
-		            	<button class="btn btn-default"><spring:message code="label.addPage"></spring:message></button>
-		            </div>	    		          
+		            </div>	
+		            <div class="list-group-item">
+		            	<form:form action="/isite/projects/edit/${projectName }/${pageNumber }" method="post">
+		            		<input type="hidden" name="html" id="html" />
+		            		<button class="btn btn-default" type="submit" onclick="passText();"><spring:message code="label.addPage"></spring:message></button>
+		            	</form:form>    		 
+		            </div>         
 		      	</div>
-		    </div>	
+		    </div>
             <div class="col-md-9 col-xs-9 col-sm-9" id="selected-content">
             	<div class="text-center">
                 	<h3>${projectName }</h3>
@@ -74,7 +89,7 @@ function preview() {
                 	
                 	</div>                	
                 </div>                      
-            </div>       
+            </div>
             <div class="col-md-6 pull-right" id="markdown-editor"> 
 	    		<textarea class="form-control" rows="5" id="textarea-editor"></textarea>
 	    		<div class="panel panel-footer clearfix">

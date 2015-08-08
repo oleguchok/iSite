@@ -1,5 +1,7 @@
 package com.oguchok.isite.web.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -96,7 +100,23 @@ public class ProjectController {
 		Project project = projectService.getProjectByName(projectName);
 		model.addAttribute("projectName", projectName);
 		model.addAttribute("page", pageService.getProjectPage(project.getId(), pageNumber));
+		model.addAttribute("pageNumber", pageNumber);
 		return "pageEditor";
+	}
+	
+	@RequestMapping(value = "/edit/{projectName}/{pageNumber}", method = RequestMethod.POST)
+	public String registerUserAccount
+	      (@RequestBody String html, BindingResult result, @PathVariable String projectName,
+	    		  @PathVariable int pageNumber, Model model) throws UnsupportedEncodingException {
+		
+		Page page = new Page();
+		html = html.substring(0, html.length() - 43);
+		page.setHtml(java.net.URLDecoder.decode(html, "UTF-8").substring(5));
+		page.setNumber(pageNumber);
+		page.setProject(projectService.getProjectByName(projectName));
+		pageService.savePage(page);
+		setPageModel(model,projectName,pageNumber);
+		return "page";
 	}
 	
 	@RequestMapping(value = "/{projectName}/{pageNumber}", method = RequestMethod.GET)
@@ -104,7 +124,7 @@ public class ProjectController {
 			@PathVariable int pageNumber, Model model, HttpServletRequest request){
 		
 		Project project = projectService.getProjectByName(projectName);
-		model.addAttribute("projectName", projectName);
+		setPageModel(model,projectName,pageNumber);
 		boolean isUserPage = false;
 		if (project.getUser().getUsername().equals(getCurrentUser(request).getUsername())) {
 			
@@ -112,7 +132,17 @@ public class ProjectController {
 		}
 		model.addAttribute("isUserPage", isUserPage);
 		Page page = pageService.getProjectPage(project.getId(), pageNumber);
+		if (page == null && isUserPage) {
+			
+			return "pageEditor";
+		}
 		model.addAttribute("content", page.getHtml());
 		return "page";
+	}
+	
+	private void setPageModel(Model model, String projectName, int pageNumber) {
+		
+		model.addAttribute("projectName", projectName);
+		model.addAttribute("pageNumber", pageNumber);
 	}
 }

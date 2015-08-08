@@ -8,7 +8,7 @@
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/styles.css"/>
-	<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-2.1.4.min.js"></script>
 	<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-ui.min.js"></script>
 	<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.min.js"></script>
 </head>
