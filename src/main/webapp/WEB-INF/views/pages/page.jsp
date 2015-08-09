@@ -10,8 +10,12 @@
 <div class="container">
 	<c:if test="${isUserPage == true }">
 		<div class="btn-group pull-right">
-			<button class="btn btn-default"></button>
-		    <button class="btn btn-default"><spring:message code="label.addPage"></spring:message></button>
+			<button class="btn btn-danger"><spring:message code="label.delete"></spring:message></button>
+			<a href="${pageContext.request.contextPath}/projects/add/${projectName}">
+				<button class="btn btn-default"><spring:message code="label.addPage"></spring:message></button>
+			</a>
+			<button class="btn btn-default">&lt;&lt;</button>
+			<button class="btn btn-default">>></button>
 		</div>
 	</c:if>
 	<div class="row-fluid">

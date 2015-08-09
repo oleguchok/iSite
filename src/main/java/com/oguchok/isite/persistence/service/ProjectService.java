@@ -11,4 +11,6 @@ public interface ProjectService {
 	void saveProject(Project project);
 	
 	Project getProjectByName(String projectName);
+	
+	void deleteProject(Project project);
 }

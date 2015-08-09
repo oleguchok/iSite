@@ -7,6 +7,18 @@
 <title><spring:message code="label.myProjects"></spring:message></title>
 </head>
 <body>
+<script>
+function deleteProj(projectName) {
+	
+	$.ajax({
+		type: "get",
+        url:  '/isite/projects/' + projectName + '/delete',
+		success: function(){
+			location.reload();
+		}
+	});;
+}
+</script>
 	<div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-12 col-sm-9">
@@ -17,8 +29,10 @@
            
           <div class="row">
           <c:forEach items="${projects }" var="project">
-            <div class="col-xs-6 col-lg-4">
-              <h2>${project.projectName }</h2>
+            <div class="col-xs-6 col-lg-4" id="${project.projectName }">
+              <h2>${project.projectName }<button class="btn btn-danger pull-right" onclick="deleteProj('${project.projectName}');">
+              	<span class="glyphicon glyphicon-trash"></span>
+              </button></h2>
               <p><spring:message code="label.style"></spring:message>: ${project.style }</p>
               <p><spring:message code="label.menu"></spring:message>: ${project.menu }</p>
               <p><a class="btn btn-default"

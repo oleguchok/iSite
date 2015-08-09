@@ -34,4 +34,11 @@ public class PageServiceImpl implements PageService{
 		return pageRepository.findByProjectIdAndPageNumber(projectId, pageNumber);
 	}
 
+	@Override
+	public int getNumberOfPagesInProject(int projectId) {
+		
+		List<Page> pages = pageRepository.findByProjectId(projectId);
+		return pages.size();
+	}
+
 }

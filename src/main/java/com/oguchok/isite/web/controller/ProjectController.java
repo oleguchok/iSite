@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.oguchok.isite.persistence.model.Page;
 import com.oguchok.isite.persistence.model.Project;
@@ -49,6 +50,16 @@ public class ProjectController {
 	public ModelAndView getMyProjects(HttpServletRequest request) {
 	
 		ModelAndView model = new ModelAndView("projects");
+		model.addObject("projects", getCurrentUser(request).getProjects());
+		return model;
+	}
+	
+	@RequestMapping(value = "/{projectName}/delete", method = RequestMethod.GET)
+	public ModelAndView deleteProject(@PathVariable String projectName, 
+			HttpServletRequest request) {
+	
+		ModelAndView model = new ModelAndView(new RedirectView("projects"));
+		projectService.deleteProject(projectService.getProjectByName(projectName));
 		model.addObject("projects", getCurrentUser(request).getProjects());
 		return model;
 	}
@@ -115,8 +126,20 @@ public class ProjectController {
 		page.setNumber(pageNumber);
 		page.setProject(projectService.getProjectByName(projectName));
 		pageService.savePage(page);
-		setPageModel(model,projectName,pageNumber);
+		setPageModel(model,projectName,pageNumber, true);
+		model.addAttribute("content", page.getHtml());
 		return "page";
+	}
+	
+	@RequestMapping(value = "/add/{projectName}", method = RequestMethod.GET)
+	public String addPageToProject(@PathVariable String projectName,
+			Model model) {
+		
+		Project project = projectService.getProjectByName(projectName);
+		int pageNumber = pageService.getNumberOfPagesInProject(project.getId()) + 1;
+		model.addAttribute("projectName", projectName);
+		model.addAttribute("pageNumber", pageNumber);
+		return "pageEditor";
 	}
 	
 	@RequestMapping(value = "/{projectName}/{pageNumber}", method = RequestMethod.GET)
@@ -124,13 +147,8 @@ public class ProjectController {
 			@PathVariable int pageNumber, Model model, HttpServletRequest request){
 		
 		Project project = projectService.getProjectByName(projectName);
-		setPageModel(model,projectName,pageNumber);
-		boolean isUserPage = false;
-		if (project.getUser().getUsername().equals(getCurrentUser(request).getUsername())) {
-			
-			isUserPage = true;
-		}
-		model.addAttribute("isUserPage", isUserPage);
+		boolean isUserPage = isUserPage(project, request);	
+		setPageModel(model,projectName,pageNumber,isUserPage);	
 		Page page = pageService.getProjectPage(project.getId(), pageNumber);
 		if (page == null && isUserPage) {
 			
@@ -140,9 +158,22 @@ public class ProjectController {
 		return "page";
 	}
 	
-	private void setPageModel(Model model, String projectName, int pageNumber) {
+	private void setPageModel(Model model, String projectName, int pageNumber,
+			boolean isUserPage) {
 		
 		model.addAttribute("projectName", projectName);
 		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("isUserPage", isUserPage);
+		
+	}
+	
+	private boolean isUserPage(Project project, HttpServletRequest request) {
+		
+		boolean isUserPage = false;
+		if (project.getUser().getUsername().equals(getCurrentUser(request).getUsername())) {
+			
+			isUserPage = true;
+		}
+		return isUserPage;
 	}
 }

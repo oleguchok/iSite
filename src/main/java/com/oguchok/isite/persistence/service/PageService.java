@@ -11,4 +11,6 @@ public interface PageService {
 	void savePage(Page page);
 	
 	Page getProjectPage(int projectId, int pageNumber);
+	
+	int getNumberOfPagesInProject(int projectId);
 }
