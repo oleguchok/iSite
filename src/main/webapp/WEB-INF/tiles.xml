@@ -9,6 +9,11 @@
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>        
     </definition>
+    <definition name="pageLayout" template="/WEB-INF/views/layout/pageLayout.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>        
+    </definition>
     <definition name="index" extends="mainLayout">
         <put-attribute name="body" value="/WEB-INF/views/pages/index.jsp"/>
     </definition>
@@ -33,7 +38,7 @@
     <definition name="add" extends="mainLayout">
     	<put-attribute name="body" value="/WEB-INF/views/pages/add-project.jsp"></put-attribute>
     </definition>
-    <definition name="page" extends="mainLayout">
+    <definition name="page" extends="pageLayout">
     	<put-attribute name="head" value=""></put-attribute>
     	<put-attribute name="body" value="/WEB-INF/views/pages/page.jsp"></put-attribute>
     </definition>

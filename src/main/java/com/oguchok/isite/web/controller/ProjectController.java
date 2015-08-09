@@ -112,6 +112,7 @@ public class ProjectController {
 		model.addAttribute("projectName", projectName);
 		model.addAttribute("page", pageService.getProjectPage(project.getId(), pageNumber));
 		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("project", project);
 		return "pageEditor";
 	}
 	
@@ -121,13 +122,16 @@ public class ProjectController {
 	    		  @PathVariable int pageNumber, Model model) throws UnsupportedEncodingException {
 		
 		Page page = new Page();
+		Project project = projectService.getProjectByName(projectName);
 		html = html.substring(0, html.length() - 43);
 		page.setHtml(java.net.URLDecoder.decode(html, "UTF-8").substring(5));
 		page.setNumber(pageNumber);
-		page.setProject(projectService.getProjectByName(projectName));
+		page.setProject(project);
 		pageService.savePage(page);
 		setPageModel(model,projectName,pageNumber, true);
+		model.addAttribute("project", project);
 		model.addAttribute("content", page.getHtml());
+		model.addAttribute("style", setBootstrapStyleForProject(project));
 		return "page";
 	}
 	
@@ -139,6 +143,7 @@ public class ProjectController {
 		int pageNumber = pageService.getNumberOfPagesInProject(project.getId()) + 1;
 		model.addAttribute("projectName", projectName);
 		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("project", project);
 		return "pageEditor";
 	}
 	
@@ -151,14 +156,17 @@ public class ProjectController {
 			
 			pageNumber = pageService.getNumberOfPagesInProject(project.getId());
 		}
+		
 		boolean isUserPage = isUserPage(project, request);	
 		setPageModel(model,projectName,pageNumber,isUserPage);	
+		model.addAttribute("project", project);
 		Page page = pageService.getProjectPage(project.getId(), pageNumber);
 		if (page == null && isUserPage) {
 			
 			return "pageEditor";
 		}
 		model.addAttribute("content", page.getHtml());
+		model.addAttribute("style", setBootstrapStyleForProject(project));
 		return "page";
 	}
 	
@@ -169,6 +177,16 @@ public class ProjectController {
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("isUserPage", isUserPage);
 		
+	}
+	
+	private String setBootstrapStyleForProject(Project project){
+		
+		if (project.getStyle().equals("light")){
+			return "bootstrap-light.min.css";
+		}
+		else {
+			return "bootstrap.min.css";
+		}
 	}
 	
 	private boolean isUserPage(Project project, HttpServletRequest request) {

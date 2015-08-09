@@ -12,13 +12,13 @@
 </head>
 <body>
 <script>
-function preview() {	
+function preview(menu) {	
 	
 	var win = window.open("about:blank");
-	win.document.write(getHtmlCode());
+	win.document.write(getHtmlCode(menu));
 }
 
-function getHtmlCode() {
+function getHtmlCode(menu) {
 	
 	var selected_content = $("#selected-content").clone();
 	selected_content.find("div").each(function(i,o) {
@@ -38,8 +38,7 @@ function getHtmlCode() {
 	var selected_content_html = selected_content.html();
 	
 	var dialogContent  ='<!DOCTYPE HTML>\n<html lang="en-US">\n<head>\n<meta charset="UTF-8">\n<title></title>\n';
-	dialogContent+= '<link href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" media="screen">\n';
-	dialogContent+='<style>\n'+$("#content-styles").html()+'\n</style>\n';
+	//dialogContent+= '<link href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" media="screen">\n';
 	dialogContent+= '</head>\n<body>';
 	dialogContent+= selected_content_html;
 	dialogContent+= '\n</body></html>';
@@ -47,9 +46,8 @@ function getHtmlCode() {
 	return dialogContent;
 }
 
-function passText() {
-	
-	$("#html").val(getHtmlCode());
+function passText(menu) {
+	$("#html").val(getHtmlCode(menu));
 }
 </script>
 	<div class="container">
@@ -64,12 +62,12 @@ function passText() {
 			            </div>
 		            </div>	
 		            <div class="list-group-item">
-		            	<button class="btn btn-default" onclick="preview();"><spring:message code="label.preview"></spring:message></button>
+		            	<button class="btn btn-default" onclick="preview('${project.menu}');"><spring:message code="label.preview"></spring:message></button>
 		            </div>	
 		            <div class="list-group-item">
 		            	<form:form action="/isite/projects/edit/${projectName }/${pageNumber }" method="post">
 		            		<input type="hidden" name="html" id="html" />
-		            		<button class="btn btn-default" type="submit" onclick="passText();"><spring:message code="label.addPage"></spring:message></button>
+		            		<button class="btn btn-default" type="submit" onclick="passText('${project.menu}');"><spring:message code="label.addPage"></spring:message></button>
 		            	</form:form>    		 
 		            </div>  
 		            <div class="list-group-item">		            	
@@ -79,10 +77,11 @@ function passText() {
 		            </div>       
 		      	</div>
 		    </div>
+		    <div class="text-center">
+                <h3>${projectName }</h3>
+            </div>
             <div class="col-md-9 col-xs-9 col-sm-9" id="selected-content">
-            	<div class="text-center">
-                	<h3>${projectName }</h3>
-                </div>                
+            	                
                 <div class="row-fluid" id="workPlace">
                 	<div class="well droppedFields col-md-12">
                 	
