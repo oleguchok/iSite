@@ -45,4 +45,7 @@
     <definition name="pageEditor" extends="mainLayout">
     	<put-attribute name="body" value="/WEB-INF/views/pages/pageEditor.jsp"></put-attribute>
     </definition>
+    <definition name="menu" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/menuSetter.jsp"></put-attribute>
+    </definition>
 </tiles-definitions>

@@ -23,22 +23,39 @@
 			</a>
 		</div>
 	</c:if>
-	<div class="masthead">
-        <h3 class="text-muted">${projectName}</h3>
-        <nav>
-          <ul class="nav nav-justified">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Downloads</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-	<div class="row-fluid">
-		${content }
-	</div>
+	<c:choose>
+		<c:when test="${project.menu == 'horizontal' }">
+		<div class="masthead">
+	        <h3 class="text-muted">${projectName}</h3>
+	        <nav>
+	          <ul class="nav nav-justified">
+	          <c:forEach items="${pages }" var="page">
+	            <li><a href="${pageContext.request.contextPath}/projects/${projectName}/${page.number}">${page.menu }</a></li>
+	           </c:forEach>
+	          </ul>
+	        </nav>
+	      </div>
+	      <div class="row-fluid">
+			${content }
+		  </div>
+	    </c:when>
+	    <c:otherwise>
+	    <h3 class="text-muted">${projectName}</h3>
+	    	<div class="row-fluid">
+	    		<div class="col-md-3" id="sidebar">
+			          <div class="list-group">
+			          	<c:forEach items="${pages }" var="page">
+			            	<a href="${pageContext.request.contextPath}/projects/${projectName}/${page.number}" class="list-group-item">${page.menu }</a>
+			            </c:forEach>
+			          </div>
+			    </div>
+				<div class="col-md-9">
+					${content }
+				</div>
+			</div>
+	    </c:otherwise>
+	</c:choose>
+	
 </div>
 </body>
 </html>

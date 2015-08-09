@@ -38,6 +38,10 @@ function deleteProj(projectName) {
               <p><a class="btn btn-default"
               	href="${pageContext.request.contextPath}/projects/${project.projectName }/1" role="button">
               	<spring:message code="label.viewProj"></spring:message> »
+              </a>
+              <a class="btn btn-default"
+              	href="${pageContext.request.contextPath}/projects/${project.projectName }/menu" role="button">
+              	<spring:message code="label.setMenu"></spring:message> »
               </a></p>
             </div>
            </c:forEach>
@@ -52,8 +56,6 @@ function deleteProj(projectName) {
             		<spring:message code="label.addProject"></spring:message>
             	</span>
             </a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
           </div>
         </div>
       </div>

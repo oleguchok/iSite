@@ -127,11 +127,13 @@ public class ProjectController {
 		page.setHtml(java.net.URLDecoder.decode(html, "UTF-8").substring(5));
 		page.setNumber(pageNumber);
 		page.setProject(project);
+		page.setMenu("Page " + Integer.toString(pageNumber));
 		pageService.savePage(page);
 		setPageModel(model,projectName,pageNumber, true);
 		model.addAttribute("project", project);
 		model.addAttribute("content", page.getHtml());
 		model.addAttribute("style", setBootstrapStyleForProject(project));
+		model.addAttribute("pages", pageService.getProjectPages(project.getId()));
 		return "page";
 	}
 	
@@ -167,7 +169,15 @@ public class ProjectController {
 		}
 		model.addAttribute("content", page.getHtml());
 		model.addAttribute("style", setBootstrapStyleForProject(project));
+		model.addAttribute("pages", pageService.getProjectPages(project.getId()));
 		return "page";
+	}
+
+	@RequestMapping(value = "/{projectName}/menu", method = RequestMethod.GET)
+	public String getProjectMenu(@PathVariable String projectName, Model model) {
+		
+		
+		return "menu";
 	}
 	
 	private void setPageModel(Model model, String projectName, int pageNumber,

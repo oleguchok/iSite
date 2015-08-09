@@ -1,6 +1,5 @@
 package com.oguchok.isite.persistence.model;
 
-import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,32 +12,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pages")
-public class Page {
+@Table(name = "menu")
+public class Menu {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	private String key;
+	
+	private String value;
+	
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private Project project;
-	
-	@Column(name = "html")
-	private String html;
-	
-	@Column(name = "number")
-	private int pageNumber;
-	
-	private String menu;
-
-	public String getMenu() {
-		return menu;
-	}
-
-	public void setMenu(String menu) {
-		this.menu = menu;
-	}
 
 	public int getId() {
 		return id;
@@ -48,27 +35,27 @@ public class Page {
 		this.id = id;
 	}
 
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	public Project getProject() {
 		return project;
 	}
 
 	public void setProject(Project project) {
 		this.project = project;
-	}
-
-	public String getHtml() {
-		return html;
-	}
-
-	public void setHtml(String html) {
-		this.html = html;
-	}
-
-	public int getNumber() {
-		return pageNumber;
-	}
-
-	public void setNumber(int number) {
-		this.pageNumber = number;
 	}
 }

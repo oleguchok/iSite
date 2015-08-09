@@ -40,6 +40,17 @@ public class Project {
     @OneToMany(orphanRemoval=true, mappedBy = "project", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private Set<Page> pages;
 
+    @OneToMany(orphanRemoval=true, mappedBy = "project", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    private Set<Menu> menus;
+    
+	public Set<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(Set<Menu> menus) {
+		this.menus = menus;
+	}
+
 	public Set<Page> getPages() {
 		return pages;
 	}
