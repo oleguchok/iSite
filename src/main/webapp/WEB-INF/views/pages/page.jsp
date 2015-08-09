@@ -14,8 +14,12 @@
 			<a href="${pageContext.request.contextPath}/projects/add/${projectName}">
 				<button class="btn btn-default"><spring:message code="label.addPage"></spring:message></button>
 			</a>
-			<button class="btn btn-default">&lt;&lt;</button>
-			<button class="btn btn-default">>></button>
+			<a href="${pageContext.request.contextPath}/projects/${projectName}/${pageNumber - 1}">
+				<button class="btn btn-default">&lt;&lt;</button>
+			</a>
+			<a href="${pageContext.request.contextPath}/projects/${projectName}/${pageNumber + 1}">
+				<button class="btn btn-default">>></button>
+			</a>
 		</div>
 	</c:if>
 	<div class="row-fluid">

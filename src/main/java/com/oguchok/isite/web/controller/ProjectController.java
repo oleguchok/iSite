@@ -147,6 +147,10 @@ public class ProjectController {
 			@PathVariable int pageNumber, Model model, HttpServletRequest request){
 		
 		Project project = projectService.getProjectByName(projectName);
+		if (pageNumber == 0) {
+			
+			pageNumber = pageService.getNumberOfPagesInProject(project.getId());
+		}
 		boolean isUserPage = isUserPage(project, request);	
 		setPageModel(model,projectName,pageNumber,isUserPage);	
 		Page page = pageService.getProjectPage(project.getId(), pageNumber);
