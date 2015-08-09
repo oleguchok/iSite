@@ -5,6 +5,30 @@ function docReady() {
 	
 	makeDraggable();
 	
+	makeDroppable();
+	
+	makeSortable();
+	
+	$('#slider').slider({
+		min: 1,
+		max: 4,
+		change: function(event,ui){
+			$('#slider-value').text($('#slider').slider("option", "value"));
+		}
+	});
+	
+}
+
+function makeSortable() {
+	
+	$( ".droppedFields" ).sortable({
+        cancel: null, 
+        connectWith: ".droppedFields"
+    }).disableSelection();
+}
+
+function makeDroppable() {
+	
 	$(".droppedFields").droppable({
     	activeClass: "activeDroppable",
     	hoverClass: "hoverDroppable",
@@ -26,12 +50,21 @@ function docReady() {
 			});
     	}
     });
+}
+
+
+function addWell() {
 	
-	$( ".droppedFields" ).sortable({
-        cancel: null, 
-        connectWith: ".droppedFields"
-    }).disableSelection();
 	
+	var count = $('#slider').slider("option", "value");
+	if (count == 0)
+		count = 1;
+	var size = 12/count;
+	for(var i = 0; i < count; i++){
+		$('#workPlace').after($('<div></div>').addClass('well droppedFields col-md-' + size));
+	}
+	makeDroppable();
+	makeSortable();
 }
 
 function makeDraggable() {

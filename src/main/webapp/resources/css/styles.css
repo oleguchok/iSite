@@ -41,3 +41,12 @@
 .dropwell {
 	height: 50%;
 }
+
+#slider {
+	margin: 10px;
+}
+
+#slider-value {
+	font-family: "Times New Roman", Times, serif;
+	color: red;
+}

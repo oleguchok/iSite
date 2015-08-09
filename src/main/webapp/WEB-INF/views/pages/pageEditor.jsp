@@ -71,14 +71,19 @@ function passText() {
 		            		<input type="hidden" name="html" id="html" />
 		            		<button class="btn btn-default" type="submit" onclick="passText();"><spring:message code="label.addPage"></spring:message></button>
 		            	</form:form>    		 
-		            </div>         
+		            </div>  
+		            <div class="list-group-item">		            	
+		            	<div id="slider"></div>
+		            	<button class="btn btn-default" onclick="addWell();"><spring:message code="label.addLine"></spring:message></button>
+		            	<span id="slider-value">1</span>
+		            </div>       
 		      	</div>
 		    </div>
             <div class="col-md-9 col-xs-9 col-sm-9" id="selected-content">
             	<div class="text-center">
                 	<h3>${projectName }</h3>
                 </div>                
-                <div class="row-fluid" >
+                <div class="row-fluid" id="workPlace">
                 	<div class="well droppedFields col-md-12">
                 	
                 	</div>
