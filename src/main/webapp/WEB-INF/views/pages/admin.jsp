@@ -2,26 +2,26 @@
 <%@page session="true"%>
 <html>
 <body>
-	<h1>Title : ${title}</h1>
-	<h1>Message : ${message}</h1>
-
-	<c:url value="/logout" var="logoutUrl" />
-	<form action="${logoutUrl}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-	<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
-
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<h2>
-			Welcome : ${pageContext.request.userPrincipal.name} | <a
-				href="javascript:formSubmit()"> Logout</a>
-		</h2>
-	</c:if>
-
+<div class="container">
+	<h1>Admin Page</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Enabled</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${users }" var="user">
+				<tr>
+					<th>${user.username }</th>
+					<th>${user.email }</th>
+					<th>${user.enabled }</th>
+				</tr>
+			</c:forEach>
+		</tbody>	
+	</table>
+</div>
 </body>
 </html>

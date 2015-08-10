@@ -22,6 +22,11 @@
             			<a href="${pageContext.request.contextPath}/projects"><spring:message code="label.myProjects"></spring:message></a>
             		</sec:authorize>
             	</li> 
+            	<li>
+            		<sec:authorize access="hasRole('ROLE_ADMIN')">
+            			<a href="${pageContext.request.contextPath}/admin">admin</a>
+            		</sec:authorize>
+            	</li>
             </ul>
             <c:url value="/logout" var="logoutUrl" />
             <ul class="nav navbar-nav navbar-right">

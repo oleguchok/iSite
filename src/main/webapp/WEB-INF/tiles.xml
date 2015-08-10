@@ -2,7 +2,7 @@
 <!DOCTYPE tiles-definitions PUBLIC
         "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-
+        
 <tiles-definitions>
     <definition name="mainLayout" template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
@@ -47,5 +47,11 @@
     </definition>
     <definition name="menu" extends="mainLayout">
     	<put-attribute name="body" value="/WEB-INF/views/pages/menuSetter.jsp"></put-attribute>
+    </definition>
+    <definition name="admin" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/admin.jsp"></put-attribute>
+    </definition>
+    <definition name="403" extends="mainLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/403.jsp"></put-attribute>
     </definition>
 </tiles-definitions>

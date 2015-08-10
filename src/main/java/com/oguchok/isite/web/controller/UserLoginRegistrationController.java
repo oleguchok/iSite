@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oguchok.isite.event.OnRegistrationCompleteEvent;
 import com.oguchok.isite.persistence.model.User;
 import com.oguchok.isite.persistence.model.VerificationToken;
+import com.oguchok.isite.persistence.service.ProjectService;
 import com.oguchok.isite.persistence.service.UserDTO;
 import com.oguchok.isite.persistence.service.UserService;
 import com.oguchok.isite.validation.exception.RegisterParameterExistsException;
@@ -46,6 +47,9 @@ public class UserLoginRegistrationController {
 	private MessageSource messages;
 	
 	@Autowired
+	private ProjectService projectService;
+	
+	@Autowired
 	private UserDetailsService userDetailsService;
 	
 	@Autowired
@@ -56,6 +60,7 @@ public class UserLoginRegistrationController {
 
 		ModelAndView model = new ModelAndView();
 		model.setViewName("index");
+		model.addObject("projects", projectService.getAllProjects());
 		return model;
 
 	}
@@ -67,6 +72,7 @@ public class UserLoginRegistrationController {
 		model.addObject("title", "Spring Security + Hibernate Example");
 		model.addObject("message", "This page is for ROLE_ADMIN only!");
 		model.setViewName("admin");
+		model.addObject("users", userService.getAllUsers());
 
 		return model;
 

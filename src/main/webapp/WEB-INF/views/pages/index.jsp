@@ -26,5 +26,17 @@
           	</sec:authorize>
         </p>
       </div>
+    <div class="row-fluid">
+    	<c:forEach items="${projects }" var="project">
+    		<div class="well">
+				<h3>
+				<a href="${pageContext.request.contextPath}/projects/${project.projectName}/1">
+					${project.projectName }
+				</a>
+				</h3>
+				<p>${project.style } and ${project.menu } menu</p>
+			</div>    	
+    	</c:forEach>
+    </div>
 </body>
 </html>

@@ -13,4 +13,6 @@ public interface ProjectService {
 	Project getProjectByName(String projectName);
 	
 	void deleteProject(Project project);
+	
+	List<Project> getAllProjects();
 }

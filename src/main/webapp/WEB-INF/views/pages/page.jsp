@@ -42,14 +42,14 @@
 	    <c:otherwise>
 	    <h3 class="text-muted">${projectName}</h3>
 	    	<div class="row-fluid">
-	    		<div class="col-md-3" id="sidebar">
+	    		<div class="col-md-2" id="sidebar">
 			          <div class="list-group">
 			          	<c:forEach items="${pages }" var="page">
 			            	<a href="${pageContext.request.contextPath}/projects/${projectName}/${page.number}" class="list-group-item">${page.menu }</a>
 			            </c:forEach>
 			          </div>
 			    </div>
-				<div class="col-md-9">
+				<div class="col-md-10">
 					${content }
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 package com.oguchok.isite.persistence.service;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -105,5 +106,11 @@ public class UserServiceImpl implements UserService{
 	public User getUserByName(String username) {
 		
 		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		
+		return userRepository.findAll();
 	}
 }
