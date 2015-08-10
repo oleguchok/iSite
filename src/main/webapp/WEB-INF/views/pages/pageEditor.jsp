@@ -12,13 +12,13 @@
 </head>
 <body>
 <script>
-function preview(menu) {	
+function preview() {	
 	
 	var win = window.open("about:blank");
-	win.document.write(getHtmlCode(menu));
+	win.document.write(getHtmlCode());
 }
 
-function getHtmlCode(menu) {
+function getHtmlCode() {
 	
 	var selected_content = $("#selected-content").clone();
 	selected_content.find("div").each(function(i,o) {
@@ -34,11 +34,14 @@ function getHtmlCode(menu) {
 		html = converter.makeHtml(text);
 		$(o).html(unescape(html));
 	});
-	
+	selected_content.find('.video').each(function(i,o){
+		
+		var src = $(o).text();
+		$(o).html('<iframe width="420" height="315" src=' + src + '></iframe>');
+	});
 	var selected_content_html = selected_content.html();
-	
+
 	var dialogContent  ='<!DOCTYPE HTML>\n<html lang="en-US">\n<head>\n<meta charset="UTF-8">\n<title></title>\n';
-	//dialogContent+= '<link href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" media="screen">\n';
 	dialogContent+= '</head>\n<body>';
 	dialogContent+= selected_content_html;
 	dialogContent+= '\n</body></html>';
@@ -46,8 +49,8 @@ function getHtmlCode(menu) {
 	return dialogContent;
 }
 
-function passText(menu) {
-	$("#html").val(getHtmlCode(menu));
+function passText() {
+	$("#html").val(getHtmlCode());
 }
 </script>
 	<div class="container">
@@ -62,12 +65,16 @@ function passText(menu) {
 			            </div>
 		            </div>	
 		            <div class="list-group-item">
-		            	<button class="btn btn-default" onclick="preview('${project.menu}');"><spring:message code="label.preview"></spring:message></button>
+			            <div id="draggablePanel" class="well well-mini selectorField draggableField video"><spring:message code="label.video"></spring:message>
+			            </div>
+		            </div>
+		            <div class="list-group-item">
+		            	<button class="btn btn-default" onclick="preview();"><spring:message code="label.preview"></spring:message></button>
 		            </div>	
 		            <div class="list-group-item">
 		            	<form:form action="/isite/projects/edit/${projectName }/${pageNumber }" method="post">
 		            		<input type="hidden" name="html" id="html" />
-		            		<button class="btn btn-default" type="submit" onclick="passText('${project.menu}');"><spring:message code="label.addPage"></spring:message></button>
+		            		<button class="btn btn-default" type="submit" onclick="passText();"><spring:message code="label.addPage"></spring:message></button>
 		            	</form:form>    		 
 		            </div>  
 		            <div class="list-group-item">		            	
@@ -94,6 +101,13 @@ function passText(menu) {
                 	</div>                	
                 </div>                      
             </div>
+            <div class="col-md-4 pull-left" id="video-editor">
+            	<input class="form-control" type="text" id="video-link"/>
+            	<div class="btn-group">
+		    			<button class="btn btn-danger" value="Delete" onclick="deleteVideo();">Delete</button>
+		    			<button class="btn btn-default" value="Save" onclick="saveVideo();">Save</button>
+	    		</div> 
+            </div>
             <div class="col-md-6 pull-right" id="markdown-editor"> 
 	    		<textarea class="form-control" rows="5" id="textarea-editor"></textarea>
 	    		<div class="panel panel-footer clearfix">
@@ -109,6 +123,7 @@ function passText(menu) {
 <script>
 	$(document).ready(docReady);
 	$('#markdown-editor').hide();
+	$('#video-editor').hide();
 </script>
 </body>
 </html>

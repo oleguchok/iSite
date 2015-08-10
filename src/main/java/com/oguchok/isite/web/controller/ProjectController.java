@@ -1,6 +1,8 @@
 package com.oguchok.isite.web.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -132,6 +134,7 @@ public class ProjectController {
 		setPageModel(model,projectName,pageNumber, true);
 		model.addAttribute("project", project);
 		model.addAttribute("content", page.getHtml());
+		System.out.println(page.getHtml());
 		model.addAttribute("style", setBootstrapStyleForProject(project));
 		model.addAttribute("pages", pageService.getProjectPages(project.getId()));
 		return "page";
@@ -176,7 +179,21 @@ public class ProjectController {
 	@RequestMapping(value = "/{projectName}/menu", method = RequestMethod.GET)
 	public String getProjectMenu(@PathVariable String projectName, Model model) {
 		
+		Project project = projectService.getProjectByName(projectName);
+		List<Page> pages = pageService.getProjectPages(project.getId());
+		model.addAttribute("pages", pages);
+		model.addAttribute("menus", new ArrayList());
+		return "menu";
+	}
+	
+	@RequestMapping(value = "/{projectName}/menu", method = RequestMethod.POST)
+	public String postProjectMenu(@PathVariable String projectName, Model model) {
 		
+		Project project = projectService.getProjectByName(projectName);
+		List<Page> pages = pageService.getProjectPages(project.getId());
+		model.addAttribute("pages", pages);
+		model.addAttribute("projectName", projectName);
+		model.addAttribute("menus", new ArrayList());
 		return "menu";
 	}
 	

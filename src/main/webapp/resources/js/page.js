@@ -47,6 +47,11 @@ function makeDroppable() {
 					
 					editDroppedField(droppedClass);
 				}
+				
+				if (draggable.hasClass("video")){
+					
+					editDroppedVideo(droppedClass);
+				}
 			});
     	}
     });
@@ -77,7 +82,18 @@ function makeDraggable() {
 	});
 }
 
+function deleteVideo(){
+	
+	$("." + currentDropp).remove();
+	$('#video-editor').hide();
+};
 
+function saveVideo(){
+	
+	var text = $('input#video-link').val();	
+	$('div.'+currentDropp).text(text);
+	$('#video-editor').hide();
+};
 
 function deleteElem() {
 	
@@ -92,6 +108,12 @@ function saveText() {
 	$('#markdown-editor').hide();
 }
 
+function editDroppedVideo(fieldId) {
+	
+	$('#video-editor').toggle();
+	currentDropp = fieldId;
+	$('input#video-link').val($('div.'+fieldId).text());
+}
 
 function editDroppedField(fieldId){
 	
